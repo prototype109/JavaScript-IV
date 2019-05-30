@@ -16,15 +16,27 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
-function GameObject(gameAttr){
-    this.createdAt = gameAttr.createdAt;
-    this.name = gameAttr.name;
-    this.dimensions = gameAttr.dimensions;
-  }
+// function GameObject(gameAttr){
+//     this.createdAt = gameAttr.createdAt;
+//     this.name = gameAttr.name;
+//     this.dimensions = gameAttr.dimensions;
+//   }
   
-  GameObject.prototype.destroy = function(){
-    return `${this.name} was removed from the game.`;
-  };
+//   GameObject.prototype.destroy = function(){
+//     return `${this.name} was removed from the game.`;
+//   };
+
+  class GameObject{
+      constructor(gameAttr){
+        this.createdAt = gameAttr.createdAt;
+        this.name = gameAttr.name;
+        this.dimensions = gameAttr.dimensions;
+      }
+
+      destroy(){
+        return `${this.name} was removed from the game.`;
+      }
+  }
   
   /*
     === CharacterStats ===
@@ -33,16 +45,27 @@ function GameObject(gameAttr){
     * should inherit destroy() from GameObject's prototype
   */
   
-  function CharacterStats(charAttr){
-    GameObject.call(this, charAttr);
-    this.healthPoints = charAttr.healthPoints;
+//   function CharacterStats(charAttr){
+//     GameObject.call(this, charAttr);
+//     this.healthPoints = charAttr.healthPoints;
+//   }
+  
+//   CharacterStats.prototype = Object.create(GameObject.prototype);
+  
+//   CharacterStats.prototype.takeDamage = function(damage = 0){
+//     return `${this.name} took ${damage} damage`;
+//   };
+
+  class CharacterStats extends GameObject{
+      constructor(charAttr){
+          super(charAttr);
+          this.healthPoints = charAttr.healthPoints;
+      }
+
+      takeDamage(damage = 0){
+        return `${this.name} took ${damage} damage`;
+      }
   }
-  
-  CharacterStats.prototype = Object.create(GameObject.prototype);
-  
-  CharacterStats.prototype.takeDamage = function(damage = 0){
-    return `${this.name} took ${damage} damage`;
-  };
   
   /*
     === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -54,26 +77,47 @@ function GameObject(gameAttr){
     * should inherit takeDamage() from CharacterStats
   */
   
-  function Humanoid(humanAttr){
-    CharacterStats.call(this, humanAttr);
-    this.team = humanAttr.team;
-    this.weapons = humanAttr.weapons;
-    this.language = humanAttr.language;
+//   function Humanoid(humanAttr){
+//     CharacterStats.call(this, humanAttr);
+//     this.team = humanAttr.team;
+//     this.weapons = humanAttr.weapons;
+//     this.language = humanAttr.language;
+//   }
+  
+//   Humanoid.prototype = Object.create(CharacterStats.prototype);
+  
+//   Humanoid.prototype.greet = function(){
+//     return `${this.name} offers a greeting in ${this.language}.`;
+//   };
+  
+//   Humanoid.prototype.damageCalc = function(damage = 0){
+//     this.healthPoints -= damage;
+//   };
+  
+//   Humanoid.prototype.attackNotification = function(damage = 0){
+//     console.log(`${this.name} has attacked and done ${damage} damage`);
+//   };
+
+  class Humanoid extends CharacterStats{
+      constructor(humanAttr){
+          super(humanAttr);
+          this.team = humanAttr.team;
+          this.weapons = humanAttr.weapons;
+          this.language = humanAttr.language;
+      }
+
+      greet(){
+        return `${this.name} offers a greeting in ${this.language}.`;
+      }
+
+      damageCalc(damage = 0){
+        this.healthPoints -= damage;
+      }
+
+      attackNotification(damage = 0){
+        console.log(`${this.name} has attacked and done ${damage} damage`);
+      }
   }
-  
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
-  
-  Humanoid.prototype.greet = function(){
-    return `${this.name} offers a greeting in ${this.language}.`;
-  };
-  
-  Humanoid.prototype.damageCalc = function(damage = 0){
-    this.healthPoints -= damage;
-  };
-  
-  Humanoid.prototype.attackNotification = function(damage = 0){
-    console.log(`${this.name} has attacked and done ${damage} damage`);
-  };
    
   /*
     * Inheritance chain: GameObject -> CharacterStats -> Humanoid
