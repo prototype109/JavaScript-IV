@@ -195,30 +195,56 @@
     // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
     // * Create two new objects, one a villain and one a hero and fight it out with methods!
   
-    function Villain(villAttr){
-      Humanoid.call(this, villAttr);
+    // function Villain(villAttr){
+    //   Humanoid.call(this, villAttr);
+    // }
+
+    class Villain extends Humanoid{
+        constructor(villAttr){
+            super(villAttr);
+        }
+
+        feralSwipe(heroObj){
+            let sodaAttack =  Math.floor(Math.random() * 11);
+            this.attackNotification(sodaAttack);
+            console.log(heroObj.takeDamage(sodaAttack));
+            this.damageCalc(sodaAttack);
+          }
     }
   
-    function Hero(heroAttr){
-      Humanoid.call(this, heroAttr);
+    // function Hero(heroAttr){
+    //   Humanoid.call(this, heroAttr);
+    // }
+
+    class Hero extends Humanoid{
+        constructor(heroAttr){
+            super(heroAttr);
+        }
+
+        avengingWrath(villainObj){
+            let esfandAttack =  Math.floor(Math.random() * 11);
+            this.attackNotification(esfandAttack);
+            console.log(villainObj.takeDamage(esfandAttack));
+            this.damageCalc(esfandAttack);
+          }
     }
   
-    Hero.prototype = Object.create(Humanoid.prototype);
-    Villain.prototype = Object.create(Humanoid.prototype);
+    // Hero.prototype = Object.create(Humanoid.prototype);
+    // Villain.prototype = Object.create(Humanoid.prototype);
   
-    Hero.prototype.avengingWrath = function(villainObj){
-      let esfandAttack =  Math.floor(Math.random() * 11);
-      this.attackNotification(esfandAttack);
-      console.log(villainObj.takeDamage(esfandAttack));
-      this.damageCalc(esfandAttack);
-    };
+    // Hero.prototype.avengingWrath = function(villainObj){
+    //   let esfandAttack =  Math.floor(Math.random() * 11);
+    //   this.attackNotification(esfandAttack);
+    //   console.log(villainObj.takeDamage(esfandAttack));
+    //   this.damageCalc(esfandAttack);
+    // };
   
-    Villain.prototype.feralSwipe = function(heroObj){
-      let sodaAttack =  Math.floor(Math.random() * 11);
-      this.attackNotification(sodaAttack);
-      console.log(heroObj.takeDamage(sodaAttack));
-      this.damageCalc(sodaAttack);
-    };
+    // Villain.prototype.feralSwipe = function(heroObj){
+    //   let sodaAttack =  Math.floor(Math.random() * 11);
+    //   this.attackNotification(sodaAttack);
+    //   console.log(heroObj.takeDamage(sodaAttack));
+    //   this.damageCalc(sodaAttack);
+    // };
   
     
   
@@ -255,19 +281,17 @@
       language: 'Common Tongue',
     });
   
-    console.log(sodapoppin);
-    console.log(esfand);
+    // console.log(sodapoppin);
+    // console.log(esfand);
   
     while(sodapoppin.healthPoints > 0 && esfand.healthPoints > 0){
       esfand.avengingWrath(sodapoppin);
       sodapoppin.feralSwipe(esfand);
   
       if(sodapoppin.healthPoints <= 0)
-        console.log(sodapoppin.destroy());
+          console.log(sodapoppin.destroy());
   
-      if(esfand.healthPoints <= 0){
+      if(esfand.healthPoints <= 0)
         console.log(esfand.destroy());
-      }
+
     }
-  
-    
