@@ -18,6 +18,14 @@ class Person{
     }
 }
 
+let someDude = new Person({
+    name: 'Fred',
+    age: 30,
+    location: 'Bedrock'
+});
+
+someDude.speak();
+
 // Instructor
 // Now that we have a Person as our base class, we'll build our Instructor class.
 // Instructor uses the same attributes that have been set up by Person
@@ -29,7 +37,33 @@ class Person{
 // demo receives a subject string as an argument and logs out the phrase 'Today we are learning about {subject}' where subject is the param passed in.
 // grade receives a student object and a subject string as arguments and logs out '{student.name} receives a perfect score on {subject}'
 
+class Instructor extends Person{
+    constructor(props){
+        super(props);
+        this.specialty = props.specialty;
+        this.favLanguage = props.favLanguage;
+        this.catchPhrase = props.catchPhrase;
+    }
 
+    demo(subject){
+        console.log(`Today we are learning about ${subject}`);
+    }
+
+    grade(student, subject){
+        console.log(`${student.name} recieves a perfect score on {subject}`);
+    }
+}
+
+let profDeath = new Instructor({
+    name: 'Freddy',
+    location: 'Your dreams',
+    specialty: 'redux',
+    favLanguage: 'Javascript',
+    catchPhrase: "Don't forget the homies"
+});
+
+profDeath.demo('Statistics');
+profDeath.speak();
 
 // Student
 // Now we need some students!
@@ -42,6 +76,42 @@ class Person{
 // listsSubjects a method that logs out all of the student's favoriteSubjects one by one.
 // PRAssignment a method that receives a subject as an argument and logs out that the student.name has submitted a PR for {subject}
 // sprintChallenge similar to PRAssignment but logs out student.name has begun sprint challenge on {subject}
+
+class Student extends Person{
+    constructor(props){
+        super(props);
+        this.previosBackground = props.previosBackground;
+        this.className = props.className;
+        this.favSubjects = props.favSubjects;
+    }
+
+    listsSubjects(){
+        this.favSubjects.forEach(function(subject){
+            console.log(`${subject},`)
+        });
+    }
+
+    PRAssignment(subject){
+        console.log(`${this.name} has submitted a PR for ${subject}`);
+    }
+
+    sprintChallenge(subject){
+        console.log(`${this.name} has begun sprint challenge on ${subject}`);
+    }
+}
+
+let Brandon = new Student({
+    name: 'Brandon',
+    location: 'Texas',
+    previosBackground: 'Student at college',
+    className: 'Web_pt7',
+    favSubjects: ['Javascript IV', 'Javascript III', 'Javascript II', 'PreprocessingII']
+})
+
+Brandon.listsSubjects();
+Brandon.PRAssignment('Javascript IV');
+Brandon.sprintChallenge('Javascript Fundamentals');
+profDeath.grade(Brandon, 'Javascript IV');
 
 // Project Manager
 // Now that we have instructors and students, we'd be nowhere without our PM's
