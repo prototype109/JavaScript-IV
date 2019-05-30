@@ -18,7 +18,7 @@ class Person{
     }
 }
 
-let someDude = new Person({
+const someDude = new Person({
     name: 'Fred',
     age: 30,
     location: 'Bedrock'
@@ -50,11 +50,11 @@ class Instructor extends Person{
     }
 
     grade(student, subject){
-        console.log(`${student.name} recieves a perfect score on {subject}`);
+        console.log(`${student.name} recieves a perfect score on ${subject}`);
     }
 }
 
-let profDeath = new Instructor({
+const profDeath = new Instructor({
     name: 'Freddy',
     location: 'Your dreams',
     specialty: 'redux',
@@ -86,6 +86,7 @@ class Student extends Person{
     }
 
     listsSubjects(){
+        console.log(`${this.name} favorite subject list:`)
         this.favSubjects.forEach(function(subject){
             console.log(`${subject},`)
         });
@@ -100,13 +101,13 @@ class Student extends Person{
     }
 }
 
-let Brandon = new Student({
+const Brandon = new Student({
     name: 'Brandon',
     location: 'Texas',
     previosBackground: 'Student at college',
     className: 'Web_pt7',
     favSubjects: ['Javascript IV', 'Javascript III', 'Javascript II', 'PreprocessingII']
-})
+});
 
 Brandon.listsSubjects();
 Brandon.PRAssignment('Javascript IV');
@@ -122,3 +123,28 @@ profDeath.grade(Brandon, 'Javascript IV');
 // ProjectManagers have the following Methods:
 // standUp a method that takes in a slack channel and logs `{name} announces to {channel}, @channel standy times!​​​​​
 // debugsCode a method that takes in a student object and a subject and logs out {name} debugs {student.name}'s code on {subject}
+
+class ProjectManager extends Instructor{
+    constructor(props){
+        super(props);
+        this.gradClassName = props.gradClassName;
+        this.favInstructor = props.favInstructor;
+    }
+
+    standUp(channel){
+        console.log(`${this.name} announces to ${channel}, @channel standy times!`);
+    }
+
+    debugsCode(student, subject){
+        console.log(`${this.name} debugs ${student.name}'s code on ${subject}`);
+    }
+}
+
+const Guillermo = new ProjectManager({
+    name: 'Guillermo',
+    gradClassName: 'CS1',
+    favInstructor: 'Dan Levy'
+});
+
+Guillermo.standUp('webpt7_Guillermo');
+Guillermo.debugsCode(Brandon, 'Javascript IV');
