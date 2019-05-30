@@ -52,6 +52,21 @@ class Instructor extends Person{
     grade(student, subject){
         console.log(`${student.name} recieves a perfect score on ${subject}`);
     }
+
+    gradeWork(student){
+        let addOrSubtract = Math.floor(Math.random() * 2);
+        let points = Math.floor(Math.random() * 11);
+        let add = student.grade + points;
+        let subtract = student.grade - points;
+
+        if(addOrSubtract){
+            if(add <= 100)
+                student.grade += points;
+        } else{
+            if(subtract > 0)
+                student.grade -= points;
+        }
+    }
 }
 
 const profDeath = new Instructor({
@@ -83,6 +98,7 @@ class Student extends Person{
         this.previosBackground = props.previosBackground;
         this.className = props.className;
         this.favSubjects = props.favSubjects;
+        this.grade = Math.floor(Math.random() * 101)
     }
 
     listsSubjects(){
@@ -98,6 +114,16 @@ class Student extends Person{
 
     sprintChallenge(subject){
         console.log(`${this.name} has begun sprint challenge on ${subject}`);
+    }
+
+    graduate(){
+        if(this.grade >= 70){
+            console.log(`${this.name} grade is ${this.grade}, they are ready to graduate`)
+            return true;
+        } else{
+            console.log(`${this.name}'s grade is ${this.grade} they need to study more`);
+            return false;
+        }
     }
 }
 
@@ -148,3 +174,27 @@ const Guillermo = new ProjectManager({
 
 Guillermo.standUp('webpt7_Guillermo');
 Guillermo.debugsCode(Brandon, 'Javascript IV');
+
+// Stretch Problem
+// Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+// Now that our students have a grade build out a method on the Instructor (this will be used by BOTH instructors and PM's) that will randomly add or subtract points to a student's grade. Math.random will help.
+// Add a graduate method to a student.
+// This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+// If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+
+const Sally = new Student({
+    name: 'Sally'
+})
+
+const Sid = new Instructor({
+    name: 'Sid'
+})
+
+const Silvia = new ProjectManager({
+    name: 'Silvia'
+})
+
+do{
+    //Sid.gradeWork(Sally);
+    Silvia.gradeWork(Sally);
+}while(!Sally.graduate());
